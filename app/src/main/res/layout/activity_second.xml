@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SecondActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="목표 기간:" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:text="운동 종류" />
+
+        <RadioGroup
+            android:id="@+id/rGroup2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <RadioButton
+                android:id="@+id/rBtnWalk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="걷기" />
+
+            <RadioButton
+                android:id="@+id/rBtnRunning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="달리기" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="25dp"
+        android:padding="10dp"
+        android:text="목표 시간" />
+
+    <EditText
+        android:id="@+id/edtTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="입력"
+        android:layout_below="@+id/tv1"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtTime"
+        android:textSize="25dp"
+        android:padding="10dp"
+        android:text="목표 거리" />
+
+    <EditText
+        android:id="@+id/edtDistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="입력"
+        android:layout_below="@+id/tv2"/>
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtDistance"
+        android:textSize="25dp"
+        android:padding="10dp"
+        android:visibility="invisible"
+        android:text="목표 걸음수" />
+
+    <EditText
+        android:id="@+id/edtWalk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="입력"
+        android:visibility="invisible"
+        android:layout_below="@+id/tv3"/>
+
+    <Button
+        android:id="@+id/btnCheck2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="확인" />
+
+
+</RelativeLayout>
