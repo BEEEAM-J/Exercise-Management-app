@@ -40,15 +40,27 @@ public class SecondActivity extends AppCompatActivity {
         int val = inIntent.getIntExtra("Session", 0);
         tvRes.setText("목표 기간: " + String.valueOf(val) + "일");
 
-
-        switch (rGroup2.getCheckedRadioButtonId()){
-            case R.id.rBtnWalk:
+        rBtnWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 tv3.setVisibility(View.VISIBLE);
                 edtWalk.setVisibility(View.VISIBLE);
-            case R.id.rBtnRunning:
+            }
+        });
+        rBtnRunning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 tv3.setVisibility(View.INVISIBLE);
                 edtWalk.setVisibility(View.INVISIBLE);
-        }
+            }
+        });
 
+        btnCheck2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent2.putExtra("Session", val);
+                startActivityForResult(intent2, 0);
+            }
+        });
     }
 }
