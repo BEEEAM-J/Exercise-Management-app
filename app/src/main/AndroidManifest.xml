@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Toy_Project">
         <activity
+            android:name=".FourthActivity"
+            android:exported="false" />
+        <activity
             android:name=".ThirdActivity"
             android:exported="false" />
         <activity

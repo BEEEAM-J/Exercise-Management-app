@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:padding="10dp"
-        android:text="운동 시간" />
+        android:text="운동 시간(분)" />
 
     <EditText
         android:id="@+id/edtExTime"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:padding="10dp"
-        android:text="운동 거리" />
+        android:text="운동 거리(Km)" />
 
     <EditText
         android:id="@+id/edtExDistance"
@@ -51,15 +51,13 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:padding="10dp"
-        android:visibility="invisible"
         android:text="걸음수" />
 
     <EditText
         android:id="@+id/edtExWalk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="입력"
-        android:visibility="invisible" />
+        android:hint="입력" />
 
     <Button
         android:id="@+id/btnSave"
