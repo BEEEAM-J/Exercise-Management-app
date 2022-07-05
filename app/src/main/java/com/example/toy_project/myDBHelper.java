@@ -1,0 +1,25 @@
+package com.example.toy_project;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class myDBHelper extends SQLiteOpenHelper {
+
+    public myDBHelper(Context context){
+        super(context, "ObjectDB", null, 1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE objectTBL ( oTime INTEGER, oDistance INTEGER, oWalk INTEGER);");
+        db.execSQL("CREATE TABLE exerciseTBL ( exTime INTEGER, exDistance INTEGER, exWalk INTEGER);");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS objectTBL");
+        db.execSQL("DROP TABLE IF EXISTS exerciseTBL");
+        onCreate(db);
+    }
+}

@@ -81,22 +81,4 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public class myDBHelper extends SQLiteOpenHelper{
-
-        public myDBHelper(Context context){
-            super(context, "ObjectDB", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE objectTBL ( oTime INTEGER, oDistance INTEGER, oWalk INTEGER);");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS objectTBL");
-            onCreate(db);
-        }
-    }
-
 }

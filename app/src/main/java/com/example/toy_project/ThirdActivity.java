@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class ThirdActivity extends AppCompatActivity {
 
-    myDBHelper1 myHelper;
+    myDBHelper myHelper;
     TextView tv3;
     EditText edtExTime, edtExDistance, edtExWalk;
     Button btnSave;
@@ -30,7 +30,7 @@ public class ThirdActivity extends AppCompatActivity {
         edtExDistance = findViewById(R.id.edtExDistance);
         edtExWalk = findViewById(R.id.edtExWalk);
         btnSave = findViewById(R.id.btnSave);
-        myHelper = new myDBHelper1(this);
+        myHelper = new myDBHelper(this);
 
         Intent inIntent2 = getIntent();
         Intent intent3 = new Intent(getApplicationContext(), FourthActivity.class);
@@ -61,21 +61,4 @@ public class ThirdActivity extends AppCompatActivity {
         });
     }
 
-    public class myDBHelper1 extends SQLiteOpenHelper {
-
-        public myDBHelper1(Context context){
-            super(context, "ExerciseDB", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE exerciseTBL ( exTime INTEGER, exDistance INTEGER, exWalk INTEGER);");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS exerciseTBL");
-            onCreate(db);
-        }
-    }
 }
