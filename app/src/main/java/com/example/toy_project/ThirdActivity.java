@@ -48,6 +48,9 @@ public class ThirdActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sqlDB1 = myHelper.getReadableDatabase();
+                sqlDB1.execSQL("DELETE FROM exerciseTBL");
+                sqlDB1.close();
                 sqlDB1 = myHelper.getWritableDatabase();
                 sqlDB1.execSQL("INSERT INTO exerciseTBL VALUES ( " + edtExTime.getText().toString() + " , " + edtExDistance.getText().toString() + " , " + edtExWalk.getText().toString() + ");");
                 sqlDB1.close();

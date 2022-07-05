@@ -67,6 +67,9 @@ public class SecondActivity extends AppCompatActivity {
         btnCheck2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sqlDB = myHelper.getReadableDatabase();
+                sqlDB.execSQL("DELETE FROM objectTBL");
+                sqlDB.close();
                 sqlDB = myHelper.getWritableDatabase();
                 sqlDB.execSQL("INSERT INTO objectTBL VALUES ( " + edtTime.getText().toString() + " , " + edtDistance.getText().toString() + " , " + edtWalk.getText().toString() + ");");
                 sqlDB.close();
