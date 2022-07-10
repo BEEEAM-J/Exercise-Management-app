@@ -1,19 +1,30 @@
 package com.example.toy_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class FourthActivity extends AppCompatActivity {
 
     myDBHelper myHelper;
-    TextView tvSession3, tvOTime, tvExTime, tvCheckTime, tvODistance, tvExDistance, tvCheckDistance, tvOWalk, tvExWalk, tvCheckWalk;
+    TextView tvSession3, tvOTime, tvExTime, tvCheckTime, tvODistance, tvExDistance, tvCheckDistance, tvOWalk, tvExWalk, tvCheckWalk, tvRecord;
     SQLiteDatabase sqlDB2;
+    CalendarView calView2;
     Cursor ocursor, excursor;
+    LinearLayout tvLayout;
     int objectTime, objectDistance, objectWalk, exerciseTime, exerciseDistance, exerciseWalk;
 
     @Override
@@ -22,6 +33,7 @@ public class FourthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fourth);
 
         myHelper = new myDBHelper(this);
+        calView2 = findViewById(R.id.calView2);
         tvSession3 = findViewById(R.id.tvSession3);
         tvOTime = findViewById(R.id.tvOTime);
         tvExTime = findViewById(R.id.tvExTime);
@@ -32,62 +44,153 @@ public class FourthActivity extends AppCompatActivity {
         tvOWalk = findViewById(R.id.tvOWalk);
         tvExWalk = findViewById(R.id.tvExWalk);
         tvCheckWalk = findViewById(R.id.tvCheckWalk);
+        tvRecord = findViewById(R.id.tvRecord);
+        tvLayout = findViewById(R.id.tvLayout);
 
         Intent inIntent3 = getIntent();
 
         int val3 = inIntent3.getIntExtra("Session", 0);
+        int versionID3 = inIntent3.getIntExtra("Version", 0);
+
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String current = format.format(currentTime);
 
         tvSession3.setText("목표 기간: " + String.valueOf(val3) + "일");
 
         sqlDB2 = myHelper.getReadableDatabase();
-        ocursor = sqlDB2.rawQuery(" SELECT * FROM objectTBL; ", null);
-        excursor = sqlDB2.rawQuery("SELECT * FROM ExerciseTBL;", null);
+        if(versionID3 == 1){
+            ocursor = sqlDB2.rawQuery("SELECT * FROM objectTBL_W WHERE date = '" + current + "'; ", null);
+            excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_W WHERE date = '" + current + "';", null);
 
-        while(ocursor.moveToNext()){
-            tvOTime.setText("목표 시간: " + ocursor.getString(0) + "분");
-            objectTime = Integer.parseInt(ocursor.getString(0));
+            while(ocursor.moveToNext()){
+                tvOTime.setText("목표 시간: " + ocursor.getString(0) + "분");
+                objectTime = Integer.parseInt(ocursor.getString(0));
 
-            tvODistance.setText("목표 거리: " + ocursor.getString(1) + "Km");
-            objectDistance = Integer.parseInt(ocursor.getString(1));
+                tvODistance.setText("목표 거리: " + ocursor.getString(1) + "Km");
+                objectDistance = Integer.parseInt(ocursor.getString(1));
 
-            tvOWalk.setText("목표 걸음수: " + ocursor.getString(2));
-            objectWalk = Integer.parseInt(ocursor.getString(2));
+                tvOWalk.setText("목표 걸음수: " + ocursor.getString(2));
+                objectWalk = Integer.parseInt(ocursor.getString(2));
+            }
+
+            while(excursor.moveToNext()){
+                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+                exerciseTime = Integer.parseInt(excursor.getString(0));
+
+                tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
+                exerciseDistance = Integer.parseInt(excursor.getString(1));
+
+                tvExWalk.setText("내 걸음수: " + excursor.getString(2));
+                exerciseWalk = Integer.parseInt(excursor.getString(2));
+            }
+
+            if(exerciseTime >= objectTime){
+                tvCheckTime.setText("목표 완료/실패: 완료");
+            }
+            else{
+                tvCheckTime.setText("목표 완료/실패: 실패");
+            }
+
+            if(exerciseDistance >= objectDistance){
+                tvCheckDistance.setText("목표 완료/실패: 완료");
+            }
+            else{
+                tvCheckDistance.setText("목표 완료/실패: 실패");
+            }
+
+            if(exerciseWalk >= objectWalk){
+                tvCheckWalk.setText("목표 완료/실패: 완료");
+            }
+            else{
+                tvCheckWalk.setText("목표 완료/실패: 실패");
+            }
         }
+        else if(versionID3 == 0){
 
-        while(excursor.moveToNext()){
-            tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
-            exerciseTime = Integer.parseInt(excursor.getString(0));
+            tvOWalk.setVisibility(View.INVISIBLE);
+            tvExWalk.setVisibility(View.INVISIBLE);
+            tvCheckWalk.setVisibility(View.INVISIBLE);
 
-            tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
-            exerciseDistance = Integer.parseInt(excursor.getString(1));
+            ocursor = sqlDB2.rawQuery(" SELECT * FROM objectTBL_R WHERE date = '" + current + "'; ", null);
+            excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + current + "';", null);
 
-            tvExWalk.setText("내 걸음수: " + excursor.getString(2));
-            exerciseWalk = Integer.parseInt(excursor.getString(2));
-        }
+            while(ocursor.moveToNext()){
+                tvOTime.setText("목표 시간: " + ocursor.getString(0) + "분");
+                objectTime = Integer.parseInt(ocursor.getString(0));
 
-        if(exerciseTime >= objectTime){
-            tvCheckTime.setText("목표 완료/실패: 완료");
-        }
-        else{
-            tvCheckTime.setText("목표 완료/실패: 실패");
-        }
+                tvODistance.setText("목표 거리: " + ocursor.getString(1) + "Km");
+                objectDistance = Integer.parseInt(ocursor.getString(1));
+            }
 
-        if(exerciseDistance >= objectDistance){
-            tvCheckDistance.setText("목표 완료/실패: 완료");
-        }
-        else{
-            tvCheckDistance.setText("목표 완료/실패: 실패");
-        }
+            while(excursor.moveToNext()){
+                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+                exerciseTime = Integer.parseInt(excursor.getString(0));
 
-        if(exerciseWalk >= objectWalk){
-            tvCheckWalk.setText("목표 완료/실패: 완료");
-        }
-        else{
-            tvCheckWalk.setText("목표 완료/실패: 실패");
+                tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
+                exerciseDistance = Integer.parseInt(excursor.getString(1));
+
+                if(exerciseTime >= objectTime){
+                    tvCheckTime.setText("목표 완료/실패: 완료");
+                }
+                else{
+                    tvCheckTime.setText("목표 완료/실패: 실패");
+                }
+
+                if(exerciseDistance >= objectDistance){
+                    tvCheckDistance.setText("목표 완료/실패: 완료");
+                }
+                else{
+                    tvCheckDistance.setText("목표 완료/실패: 실패");
+                }
+            }
         }
 
         ocursor.close();
         excursor.close();
         sqlDB2.close();
+
+        calView2.setOnDateChangeListener(new CalendarView.OnDateChangeListener() // 날짜 선택 이벤트
+        {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
+            {
+                String strMonth = String.valueOf(month + 1);
+                String strDayOfMonth = String.valueOf(dayOfMonth);
+                if(month < 9){
+                    strMonth = "0" + String.valueOf(month + 1);
+                }
+                if(dayOfMonth < 10){
+                    strDayOfMonth = "0" + String.valueOf(dayOfMonth);
+                }
+                String date = year + "-" + strMonth + "-" + strDayOfMonth;
+                tvRecord.setText(date); // 선택한 날짜로 설정
+                sqlDB2 = myHelper.getReadableDatabase();
+                tvLayout.setVisibility(View.INVISIBLE);
+
+                if(versionID3 == 1){
+                    String strRecord = "운동 종류: 걷기" + "\r\n";
+                    excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_W WHERE date = '" + date + "';", null);
+                    while(excursor.moveToNext()){
+                        strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +
+                                "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" +
+                                "내 걸음수: " + excursor.getString(2);
+                    }
+                    tvRecord.setText(strRecord);
+                }
+                else if(versionID3 == 0){
+                    String strRecord = "운동 종류: 달리기" + "\r\n";
+                    excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + date + "';", null);
+                    while(excursor.moveToNext()){
+                        strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +
+                                "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" ;
+                    }
+                    tvRecord.setText(strRecord);
+                }
+                excursor.close();
+                sqlDB2.close();
+            }
+        });
+
     }
 }
