@@ -17,46 +17,38 @@
 
     <LinearLayout
         android:id="@+id/baseLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="30dp">
 
-        <RadioGroup
-            android:id="@+id/rGroup"
+        <Button
+            android:id="@+id/btnCheckWalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/baseLayout"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/icon_walk"
+            android:background="@drawable/custom_btn"
+            android:textSize="15dp"
+            android:text="Walk" />
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"/>
 
-            <RadioButton
-                android:id="@+id/oneDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1일" />
-
-            <RadioButton
-                android:id="@+id/oneWeek"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1주" />
-
-            <RadioButton
-                android:id="@+id/oneMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1달" />
-
-        </RadioGroup>
+        <Button
+            android:id="@+id/btnCheckRun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/baseLayout"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/icon_run"
+            android:background="@drawable/custom_btn"
+            android:textSize="15dp"
+            android:text="Running" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/baseLayout"
-        android:layout_centerInParent="true"
-        android:text="목표 설정" />
-
 
 </RelativeLayout>

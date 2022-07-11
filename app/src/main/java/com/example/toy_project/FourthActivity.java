@@ -34,7 +34,6 @@ public class FourthActivity extends AppCompatActivity {
 
         myHelper = new myDBHelper(this);
         calView2 = findViewById(R.id.calView2);
-        tvSession3 = findViewById(R.id.tvSession3);
         tvOTime = findViewById(R.id.tvOTime);
         tvExTime = findViewById(R.id.tvExTime);
         tvCheckTime = findViewById(R.id.tvCheckTime);
@@ -49,14 +48,11 @@ public class FourthActivity extends AppCompatActivity {
 
         Intent inIntent3 = getIntent();
 
-        int val3 = inIntent3.getIntExtra("Session", 0);
         int versionID3 = inIntent3.getIntExtra("Version", 0);
 
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
-
-        tvSession3.setText("목표 기간: " + String.valueOf(val3) + "일");
 
         sqlDB2 = myHelper.getReadableDatabase();
         if(versionID3 == 1){
