@@ -20,12 +20,12 @@ import java.util.Locale;
 public class FourthActivity extends AppCompatActivity {
 
     myDBHelper myHelper;
-    TextView tvSession3, tvOTime, tvExTime, tvCheckTime, tvODistance, tvExDistance, tvCheckDistance, tvOWalk, tvExWalk, tvCheckWalk, tvRecord;
+    TextView tvOTime, tvExTime, tvCheckTime, tvODistance, tvExDistance, tvCheckDistance, tvOWalk, tvExWalk, tvCheckWalk, tvRecord;
     SQLiteDatabase sqlDB2;
     CalendarView calView2;
     Cursor ocursor, excursor;
     LinearLayout tvLayout;
-    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseDistance, exerciseWalk;
+    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseDistance, exerciseWalk, h ,m, s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,25 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             while(excursor.moveToNext()){
-                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+//                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+//                exerciseTime = Integer.parseInt(excursor.getString(0));
+
+                if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+                    h = Integer.parseInt(excursor.getString(0)) / 3600;
+                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + h + "시간" + m + "분" + s + "초");
+                }
+                else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + m + "분" + s + "초");
+                }
+                else{                                                                   // 운동시간이 1분 미만
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + s + "초");
+                }
+
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
                 tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
@@ -81,7 +99,7 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseWalk = Integer.parseInt(excursor.getString(2));
             }
 
-            if(exerciseTime >= objectTime){
+            if((exerciseTime / 60) >= objectTime){
                 tvCheckTime.setText("목표 달성");
             }
             else{
@@ -120,13 +138,31 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             while(excursor.moveToNext()){
-                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+//                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
+//                exerciseTime = Integer.parseInt(excursor.getString(0));
+
+                if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+                    h = Integer.parseInt(excursor.getString(0)) / 3600;
+                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + h + "시간" + m + "분" + s + "초");
+                }
+                else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + m + "분" + s + "초");
+                }
+                else{                                                                   // 운동시간이 1분 미만
+                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                    tvExTime.setText("내 운동 시간: " + s + "초");
+                }
+
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
                 tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
                 exerciseDistance = Integer.parseInt(excursor.getString(1));
 
-                if(exerciseTime >= objectTime){
+                if((exerciseTime / 60) >= objectTime){
                     tvCheckTime.setText("목표 달성");
                 }
                 else{
@@ -168,8 +204,23 @@ public class FourthActivity extends AppCompatActivity {
                     String strRecord = date + "\r\n" + "운동 종류: 걷기" + "\r\n";
                     excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_W WHERE date = '" + date + "';", null);
                     while(excursor.moveToNext()){
-                        strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +
-                                "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" +
+                        if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+                            h = Integer.parseInt(excursor.getString(0)) / 3600;
+                            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            strRecord += "내 운동 시간: " + h + "시간" + m + "분" + s + "초" + "\r\n";
+                        }
+                        else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+                            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            strRecord += "내 운동 시간: " + m + "분" + s + "초" + "\r\n";
+                        }
+                        else{                                                                   // 운동시간이 1분 미만
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            tvExTime.setText("내 운동 시간: " + s + "초");
+                            strRecord += "내 운동 시간: " + s + "초" + "\r\n";
+                        }
+                        strRecord += "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" +
                                 "내 걸음수: " + excursor.getString(2);
                     }
                     tvRecord.setText(strRecord);
@@ -178,8 +229,23 @@ public class FourthActivity extends AppCompatActivity {
                     String strRecord = date + "\r\n" + "운동 종류: 달리기" + "\r\n";
                     excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + date + "';", null);
                     while(excursor.moveToNext()){
-                        strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +
-                                "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" ;
+                        if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+                            h = Integer.parseInt(excursor.getString(0)) / 3600;
+                            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            strRecord += "내 운동 시간: " + h + "시간" + m + "분" + s + "초" + "\r\n";
+                        }
+                        else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+                            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            strRecord += "내 운동 시간: " + m + "분" + s + "초" + "\r\n";
+                        }
+                        else{                                                                   // 운동시간이 1분 미만
+                            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+                            tvExTime.setText("내 운동 시간: " + s + "초");
+                            strRecord += "내 운동 시간: " + s + "초" + "\r\n";
+                        }
+                        strRecord += "내 운동 거리: " + excursor.getString(1) + "Km" + "\r\n" ;
                     }
                     tvRecord.setText(strRecord);
                 }

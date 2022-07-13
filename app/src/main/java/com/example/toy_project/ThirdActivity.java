@@ -14,8 +14,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +30,13 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
 
     myDBHelper myHelper;
     TextView tv3, edtExWalk;
-    EditText edtExTime, edtExDistance;
-    Button btnSave;
+    EditText edtExDistance;
+    Chronometer chronoExTime;
+    Button btnSave, btnExStart, btnExEnd;
     SQLiteDatabase sqlDB1;
     SensorManager sensorManager;
     Sensor stepCountSensor;
+    int timeSec;
 
     // 현재 걸음 수
     int currentSteps = 0;
@@ -44,10 +48,12 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
         setContentView(R.layout.activity_third);
 
         tv3 = findViewById(R.id.tv3);
-        edtExTime = findViewById(R.id.edtExTime);
+        chronoExTime = findViewById(R.id.chronoExTime);
         edtExDistance = findViewById(R.id.edtExDistance);
         edtExWalk = findViewById(R.id.edtExWalk);
         btnSave = findViewById(R.id.btnSave);
+        btnExStart = findViewById(R.id.btnExStart);
+        btnExEnd = findViewById(R.id.btnExEnd);
         myHelper = new myDBHelper(this);
 
         Intent inIntent2 = getIntent();
@@ -76,14 +82,14 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
                         sqlDB1.execSQL("DELETE FROM exerciseTBL_W WHERE date = ('" + current + "') ");
                         sqlDB1.close();
                         sqlDB1 = myHelper.getWritableDatabase();
-                        sqlDB1.execSQL("INSERT INTO exerciseTBL_W VALUES ( " + edtExTime.getText().toString() + " , " + edtExDistance.getText().toString() + " , " + String.valueOf(currentSteps) + " , '" + current + "' );");
+                        sqlDB1.execSQL("INSERT INTO exerciseTBL_W VALUES ( " + timeSec + " , " + edtExDistance.getText().toString() + " , " + String.valueOf(currentSteps) + " , '" + current + "' );");
                         sqlDB1.close();
                     } else if (versionID2 == 0) {
                         sqlDB1 = myHelper.getReadableDatabase();
                         sqlDB1.execSQL("DELETE FROM exerciseTBL_R WHERE date = ('" + current + "') ");
                         sqlDB1.close();
                         sqlDB1 = myHelper.getWritableDatabase();
-                        sqlDB1.execSQL("INSERT INTO exerciseTBL_R VALUES ( " + edtExTime.getText().toString() + " , " + edtExDistance.getText().toString() + " , '" + current + "' );");
+                        sqlDB1.execSQL("INSERT INTO exerciseTBL_R VALUES ( " + timeSec + " , " + edtExDistance.getText().toString() + " , '" + current + "' );");
                         sqlDB1.close();
                     }
                     intent3.putExtra("Version", versionID2);
@@ -91,6 +97,36 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "값을 모두 입력해주세요!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        chronoExTime.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
+            @Override
+            public void onChronometerTick(Chronometer cArg) {
+                long time = SystemClock.elapsedRealtime() - cArg.getBase();
+                int h = (int)(time /3600000);
+                int m = (int)(time - h*3600000)/60000;
+                int s = (int)(time - h*3600000- m*60000)/1000 ;
+                timeSec = s + (m * 60) + (h * 3600);
+                String hh = h < 10 ? "0"+h: h+"";
+                String mm = m < 10 ? "0"+m: m+"";
+                String ss = s < 10 ? "0"+s: s+"";
+                cArg.setText(hh+":"+mm+":"+ss);
+            }
+        });
+
+        btnExStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chronoExTime.setBase(SystemClock.elapsedRealtime());
+                chronoExTime.start();
+            }
+        });
+
+        btnExEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chronoExTime.stop();
             }
         });
 

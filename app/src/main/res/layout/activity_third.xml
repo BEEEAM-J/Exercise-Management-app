@@ -7,12 +7,6 @@
     android:orientation="vertical"
     tools:context=".ThirdActivity">
 
-
-    <CalendarView
-        android:id="@+id/calView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,11 +14,12 @@
         android:padding="10dp"
         android:text="운동 시간(분)" />
 
-    <EditText
-        android:id="@+id/edtExTime"
+    <Chronometer
+        android:id="@+id/chronoExTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="입력" />
+        android:padding="10dp"
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/tv2"
@@ -54,6 +49,20 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/btnExStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="운동 시작" />
+
+    <Button
+        android:id="@+id/btnExEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="운동 종료" />
 
     <Button
         android:id="@+id/btnSave"
