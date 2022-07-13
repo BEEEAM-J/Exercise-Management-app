@@ -4,58 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".SecondActivity">
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="목표 시간(분)" />
-
-    <EditText
-        android:id="@+id/edtTime"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="입력"
-        android:layout_below="@+id/tv1"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:padding="15dp"
+            android:text="목표 시간(분)" />
 
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtTime"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="목표 거리(Km)" />
+        <EditText
+            android:id="@+id/edtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="입력"
+            android:layout_below="@+id/tv1"/>
 
-    <EditText
-        android:id="@+id/edtDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="입력"
-        android:layout_below="@+id/tv2"/>
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtTime"
+            android:textSize="25dp"
+            android:padding="15dp"
+            android:text="목표 거리(Km)" />
 
-    <TextView
-        android:id="@+id/tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtDistance"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:visibility="invisible"
-        android:text="목표 걸음수" />
+        <EditText
+            android:id="@+id/edtDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="입력"
+            android:layout_below="@+id/tv2"/>
 
-    <EditText
-        android:id="@+id/edtWalk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="입력"
-        android:visibility="invisible"
-        android:layout_below="@+id/tv3"/>
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtDistance"
+            android:textSize="25dp"
+            android:padding="15dp"
+            android:visibility="invisible"
+            android:text="목표 걸음수" />
+
+        <EditText
+            android:id="@+id/edtWalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="입력"
+            android:visibility="invisible"
+            android:layout_below="@+id/tv3"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnCheck2"

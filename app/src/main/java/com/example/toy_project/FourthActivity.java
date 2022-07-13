@@ -82,24 +82,24 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             if(exerciseTime >= objectTime){
-                tvCheckTime.setText("목표 완료/실패: 완료");
+                tvCheckTime.setText("목표 달성");
             }
             else{
-                tvCheckTime.setText("목표 완료/실패: 실패");
+                tvCheckTime.setText("실패");
             }
 
             if(exerciseDistance >= objectDistance){
-                tvCheckDistance.setText("목표 완료/실패: 완료");
+                tvCheckDistance.setText("목표 달성");
             }
             else{
-                tvCheckDistance.setText("목표 완료/실패: 실패");
+                tvCheckDistance.setText("실패");
             }
 
             if(exerciseWalk >= objectWalk){
-                tvCheckWalk.setText("목표 완료/실패: 완료");
+                tvCheckWalk.setText("목표 달성");
             }
             else{
-                tvCheckWalk.setText("목표 완료/실패: 실패");
+                tvCheckWalk.setText("실패");
             }
         }
         else if(versionID3 == 0){
@@ -127,17 +127,17 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseDistance = Integer.parseInt(excursor.getString(1));
 
                 if(exerciseTime >= objectTime){
-                    tvCheckTime.setText("목표 완료/실패: 완료");
+                    tvCheckTime.setText("목표 달성");
                 }
                 else{
-                    tvCheckTime.setText("목표 완료/실패: 실패");
+                    tvCheckTime.setText("실패");
                 }
 
                 if(exerciseDistance >= objectDistance){
-                    tvCheckDistance.setText("목표 완료/실패: 완료");
+                    tvCheckDistance.setText("목표 달성");
                 }
                 else{
-                    tvCheckDistance.setText("목표 완료/실패: 실패");
+                    tvCheckDistance.setText("실패");
                 }
             }
         }
@@ -165,7 +165,7 @@ public class FourthActivity extends AppCompatActivity {
                 tvLayout.setVisibility(View.INVISIBLE);
 
                 if(versionID3 == 1){
-                    String strRecord = "운동 종류: 걷기" + "\r\n";
+                    String strRecord = date + "\r\n" + "운동 종류: 걷기" + "\r\n";
                     excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_W WHERE date = '" + date + "';", null);
                     while(excursor.moveToNext()){
                         strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +
@@ -175,7 +175,7 @@ public class FourthActivity extends AppCompatActivity {
                     tvRecord.setText(strRecord);
                 }
                 else if(versionID3 == 0){
-                    String strRecord = "운동 종류: 달리기" + "\r\n";
+                    String strRecord = date + "\r\n" + "운동 종류: 달리기" + "\r\n";
                     excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + date + "';", null);
                     while(excursor.moveToNext()){
                         strRecord += "내 운동 시간: " + excursor.getString(0) + "분" + "\r\n" +

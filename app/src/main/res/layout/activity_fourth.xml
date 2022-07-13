@@ -41,14 +41,20 @@
                     android:text="내 운동 시간:" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCheckTime"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FF0000"
-                android:textSize="20dp"
-                android:layout_weight="1"
-                android:text="목표 완료/실패:" />
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvCheckTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="목표 완료/실패:"
+                    android:textColor="#FF0000"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,14 +76,21 @@
                     android:text="내 운동 시간:" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCheckDistance"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FF0000"
-                android:textSize="20dp"
-                android:layout_weight="1"
-                android:text="목표 완료/실패:" />
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvCheckDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="목표 완료/실패:"
+                    android:textColor="#FF0000"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,14 +112,20 @@
                     android:text="내 운동 시간:" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCheckWalk"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FF0000"
-                android:textSize="20dp"
-                android:layout_weight="1"
-                android:text="목표 완료/실패:" />
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvCheckWalk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="목표 완료/실패:"
+                    android:textColor="#FF0000"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
         </LinearLayout>
 
