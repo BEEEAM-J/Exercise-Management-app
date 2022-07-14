@@ -17,14 +17,56 @@
             android:layout_height="wrap_content"
             android:textSize="25dp"
             android:padding="15dp"
-            android:text="목표 시간(분)" />
+            android:text="목표 시간" />
 
-        <EditText
-            android:id="@+id/edtTime"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="입력"
-            android:layout_below="@+id/tv1"/>
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <NumberPicker
+                    android:id="@+id/NpMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="입력"
+                    android:layout_below="@+id/tv1"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="분"
+                        android:layout_centerInParent="true"
+                        android:textSize="25dp" />
+                </RelativeLayout>
+
+                <NumberPicker
+                    android:id="@+id/Npsec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="입력"
+                    android:layout_below="@+id/tv1"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="초"
+                        android:layout_centerInParent="true"
+                        android:textSize="25dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv2"
@@ -35,12 +77,34 @@
             android:padding="15dp"
             android:text="목표 거리(Km)" />
 
-        <EditText
-            android:id="@+id/edtDistance"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="입력"
-            android:layout_below="@+id/tv2"/>
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <NumberPicker
+                    android:id="@+id/NpDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="입력"
+                    android:layout_below="@+id/tv1"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Km"
+                        android:layout_centerInParent="true"
+                        android:textSize="25dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv3"
@@ -52,13 +116,36 @@
             android:visibility="invisible"
             android:text="목표 걸음수" />
 
-        <EditText
-            android:id="@+id/edtWalk"
+        <RelativeLayout
+            android:id="@+id/WalkLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="입력"
-            android:visibility="invisible"
-            android:layout_below="@+id/tv3"/>
+            android:visibility="invisible">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <NumberPicker
+                    android:id="@+id/NpWalk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="입력"
+                    android:layout_below="@+id/tv1"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="걸음"
+                        android:layout_centerInParent="true"
+                        android:textSize="25dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <Button
