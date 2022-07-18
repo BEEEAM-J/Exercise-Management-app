@@ -14,8 +14,8 @@ public class myDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE objectTBL_W ( oTime INTEGER, oDistance INTEGER, oWalk INTEGER, date STRING);");
         db.execSQL("CREATE TABLE objectTBL_R ( oTime INTEGER, oDistance INTEGER , date STRING);");
-        db.execSQL("CREATE TABLE exerciseTBL_W ( exTime INTEGER, exDistance INTEGER, exWalk INTEGER, date STRING);");
-        db.execSQL("CREATE TABLE exerciseTBL_R ( exTime INTEGER, exDistance INTEGER, date STRING);");
+        db.execSQL("CREATE TABLE exerciseTBL_W ( exTime INTEGER, exDistance DOUBLE, exWalk INTEGER, date STRING);");
+        db.execSQL("CREATE TABLE exerciseTBL_R ( exTime INTEGER, exDistance DOUBLE, date STRING);");
     }
 
     @Override

@@ -25,7 +25,8 @@ public class FourthActivity extends AppCompatActivity {
     CalendarView calView2;
     Cursor ocursor, excursor;
     LinearLayout tvLayout;
-    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseDistance, exerciseWalk, h ,m, s;
+    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseWalk, h ,m, s;
+    double exerciseDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
                 tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
-                exerciseDistance = Integer.parseInt(excursor.getString(1));
+                exerciseDistance = Double.parseDouble(excursor.getString(1));
 
                 tvExWalk.setText("내 걸음수: " + excursor.getString(2));
                 exerciseWalk = Integer.parseInt(excursor.getString(2));
@@ -196,7 +197,7 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
                 tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
-                exerciseDistance = Integer.parseInt(excursor.getString(1));
+                exerciseDistance = Double.parseDouble(excursor.getString(1));
 
                 if(exerciseTime >= objectTime){
                     tvCheckTime.setText("목표 달성");

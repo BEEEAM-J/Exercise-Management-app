@@ -25,12 +25,12 @@ import java.util.Locale;
 public class SecondActivity extends AppCompatActivity {
 
     myDBHelper myHelper;
-    TextView tvRes, tv3;
+    TextView tv3;
     NumberPicker NpMin, Npsec, NpDistance, NpWalk;
     Button btnCheck2;
     SQLiteDatabase sqlDB;
     RelativeLayout WalkLayout;
-    int versionID, obTime;
+    int obTime;
     String[] WalkValues;
 
     @Override
@@ -55,8 +55,6 @@ public class SecondActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
-
-
 
         if(versionID == 1){
             tv3.setVisibility(View.VISIBLE);
@@ -111,12 +109,10 @@ public class SecondActivity extends AppCompatActivity {
 
     }
 
-    public String[] getArrayWithSteps(int min, int max, int step) {
-
+    public String[] getArrayWithSteps(int min, int max, int step) {         // NumberPicker에 사용될 배열 생성
+                                                                            // 사용자 지정 간격으로 출력해야 되서 사용
         int number_of_array = (max - min) / step + 1;
-
         String[] result = new String[number_of_array];
-
         for (int i = 0; i < number_of_array; i++) {
             result[i] = String.valueOf(min + step * i);
         }
