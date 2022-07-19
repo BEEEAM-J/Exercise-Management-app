@@ -2,17 +2,23 @@ package com.example.toy_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -25,7 +31,7 @@ public class FourthActivity extends AppCompatActivity {
     CalendarView calView2;
     Cursor ocursor, excursor;
     LinearLayout tvLayout;
-    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseWalk, h ,m, s;
+    int objectTime, objectDistance, objectWalk, exerciseTime, exerciseWalk, h ,m, s, versionID3;
     double exerciseDistance;
 
     @Override
@@ -49,11 +55,12 @@ public class FourthActivity extends AppCompatActivity {
 
         Intent inIntent3 = getIntent();
 
-        int versionID3 = inIntent3.getIntExtra("Version", 0);
+        versionID3 = inIntent3.getIntExtra("Version", 0);
 
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
+
 
         sqlDB2 = myHelper.getReadableDatabase();
         if(versionID3 == 1){                                                        // 걷기 모드
@@ -119,24 +126,24 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             if(exerciseTime >= objectTime){
-                tvCheckTime.setText("목표 달성");
+                tvCheckTime.setText("Success");
             }
             else{
-                tvCheckTime.setText("실패");
+                tvCheckTime.setText("Fail");
             }
 
             if(exerciseDistance >= objectDistance){
-                tvCheckDistance.setText("목표 달성");
+                tvCheckDistance.setText("Success");
             }
             else{
-                tvCheckDistance.setText("실패");
+                tvCheckDistance.setText("Fail");
             }
 
             if(exerciseWalk >= objectWalk){
-                tvCheckWalk.setText("목표 달성");
+                tvCheckWalk.setText("Success");
             }
             else{
-                tvCheckWalk.setText("실패");
+                tvCheckWalk.setText("Fail");
             }
         }
         else if(versionID3 == 0){                               // 달리기 모드
@@ -200,17 +207,17 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseDistance = Double.parseDouble(excursor.getString(1));
 
                 if(exerciseTime >= objectTime){
-                    tvCheckTime.setText("목표 달성");
+                    tvCheckTime.setText("Success");
                 }
                 else{
-                    tvCheckTime.setText("실패");
+                    tvCheckTime.setText("Fail");
                 }
 
                 if(exerciseDistance >= objectDistance){
-                    tvCheckDistance.setText("목표 달성");
+                    tvCheckDistance.setText("Success");
                 }
                 else{
-                    tvCheckDistance.setText("실패");
+                    tvCheckDistance.setText("Fail");
                 }
             }
         }
@@ -291,5 +298,23 @@ public class FourthActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater mInflater = getMenuInflater();
+        mInflater.inflate(R.menu.showrecord, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.showRecord){
+            Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
+            intent.putExtra("Version", versionID3);
+            startActivity(intent);
+        }
+        return false;
     }
 }

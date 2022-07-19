@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/custom_btn.xml" value="0.241" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/icon_walk.xml" value="0.346" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/recyclerview_custom.xml" value="0.241" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_fourth.xml" value="0.36614583333333334" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_record.xml" value="0.36614583333333334" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_second.xml" value="0.33" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_third.xml" value="0.33" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/recyclerview_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/menu/showrecord.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>

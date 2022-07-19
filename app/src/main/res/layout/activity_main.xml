@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="목표를 설정 해보세요!"
+        android:text="운동 목표 설정"
         android:layout_above="@+id/baseLayout"
         android:layout_centerInParent="true"
         android:padding="30dp"
@@ -48,6 +48,20 @@
             android:background="@drawable/custom_btn"
             android:textSize="15dp"
             android:text="Running" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/baseLayout"
+            android:layout_centerInParent="true"
+            android:background="@drawable/custom_btn"
+            android:textSize="15dp"
+            android:text="Show Record" />
 
     </LinearLayout>
 

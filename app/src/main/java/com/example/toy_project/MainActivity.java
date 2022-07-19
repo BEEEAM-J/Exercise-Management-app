@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnCheckWalk, btnCheckRun;
+    Button btnCheckWalk, btnCheckRun, btnRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
         btnCheckWalk = findViewById(R.id.btnCheckWalk);
         btnCheckRun = findViewById(R.id.btnCheckRun);
+        btnRecord = findViewById(R.id.btnRecord);
 
         Intent intent1 = new Intent(getApplicationContext(), SecondActivity.class);
+        Intent intent2 = new Intent(getApplicationContext(), RecordActivity.class);
 
         btnCheckWalk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,22 +41,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        btnCheck.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(oneDay.isChecked() == true){
-//                    intent1.putExtra("Session", 1);
-//                    startActivityForResult(intent1, 0);
-//                }
-//                if(oneWeek.isChecked() == true){
-//                    intent1.putExtra("Session", 7);
-//                    startActivityForResult(intent1, 0);
-//                }
-//                if(oneMonth.isChecked() == true){
-//                    intent1.putExtra("Session", 30);
-//                    startActivityForResult(intent1, 0);
-//                }
-//            }
-//        });
+        btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent2.putExtra("Version", 2);
+                startActivityForResult(intent2, 0);
+            }
+        });
+
     }
 }
