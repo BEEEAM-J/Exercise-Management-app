@@ -5,24 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" "
-        />
 
     <Button
         android:id="@+id/recyclerItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:background="@drawable/recyclerview_custom"
         android:padding="10dp"
         android:text="TextView"
         android:textSize="20dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" "
-        />
+
 
 </LinearLayout>

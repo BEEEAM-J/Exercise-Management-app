@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3315" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/custom_btn.xml" value="0.241" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/custom_tv.xml" value="0.3315" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2295" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/ic_baseline_directions_run_24.xml" value="0.3315" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3315" />
+        <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/icon_run.xml" value="0.2295" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/icon_walk.xml" value="0.346" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/drawable/recyclerview_custom.xml" value="0.241" />
         <entry key="..\:/MyApplication/Toy_Project/app/src/main/res/layout/activity_fourth.xml" value="0.36614583333333334" />

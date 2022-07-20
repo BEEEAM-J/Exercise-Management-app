@@ -1,76 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".ThirdActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/baseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="운동 시간" />
+        android:background="@drawable/recyclerview_custom"
+        android:orientation="vertical">
 
-    <Chronometer
-        android:id="@+id/chronoExTime"
+        <TextView
+            android:id="@+id/baseTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="운동 시간        "
+            android:textColor="#1f1f1f"
+            android:textSize="25dp" />
+
+        <Chronometer
+            android:id="@+id/chronoExTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/baseTv"
+            android:padding="10dp"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/distanceLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/recyclerview_custom"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:text="운동 거리(Km)"
+            android:textColor="#1f1f1f"
+            android:textSize="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edtExDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:padding="10dp"
+                android:textColor="#1f1f1f"
+                android:layout_below="@id/tv2"
+                android:text="0.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#1f1f1f"
+                android:text="Km"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_walk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distanceLayout"
+        android:orientation="vertical"
+        android:background="@drawable/recyclerview_custom"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="걸음수            "
+            android:textColor="#1f1f1f"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/edtExWalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv3"
+            android:padding="10dp"
+            android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="25dp" />
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="운동 거리(Km)" />
+        <Button
+            android:id="@+id/btnExEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recyclerview_custom"
+            android:textSize="20dp"
+            android:text="종료" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/edtExDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="0.0" />
 
-    <TextView
-        android:id="@+id/tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="걸음수" />
 
-    <TextView
-        android:id="@+id/edtExWalk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="25dp" />
-
-    <Button
-        android:id="@+id/btnExStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="운동 시작" />
-
-    <Button
-        android:id="@+id/btnExEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="운동 종료" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="저장" />
-
-</LinearLayout>
+</RelativeLayout>

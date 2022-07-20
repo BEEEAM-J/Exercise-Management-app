@@ -30,7 +30,7 @@ public class FourthActivity extends AppCompatActivity {
     SQLiteDatabase sqlDB2;
     CalendarView calView2;
     Cursor ocursor, excursor;
-    LinearLayout tvLayout;
+    LinearLayout tvLayout, tvResWalk;
     int objectTime, objectDistance, objectWalk, exerciseTime, exerciseWalk, h ,m, s, versionID3;
     double exerciseDistance;
 
@@ -52,6 +52,7 @@ public class FourthActivity extends AppCompatActivity {
         tvCheckWalk = findViewById(R.id.tvCheckWalk);
         tvRecord = findViewById(R.id.tvRecord);
         tvLayout = findViewById(R.id.tvLayout);
+        tvResWalk = findViewById(R.id.tvResWalk);
 
         Intent inIntent3 = getIntent();
 
@@ -60,6 +61,9 @@ public class FourthActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
+        String currentDate = String.valueOf(current);
+
+        tvRecord.setVisibility(View.INVISIBLE);
 
 
         sqlDB2 = myHelper.getReadableDatabase();
@@ -148,9 +152,7 @@ public class FourthActivity extends AppCompatActivity {
         }
         else if(versionID3 == 0){                               // 달리기 모드
 
-            tvOWalk.setVisibility(View.INVISIBLE);
-            tvExWalk.setVisibility(View.INVISIBLE);
-            tvCheckWalk.setVisibility(View.INVISIBLE);
+            tvResWalk.setVisibility(View.INVISIBLE);
 
             ocursor = sqlDB2.rawQuery(" SELECT * FROM objectTBL_R WHERE date = '" + current + "'; ", null);
             excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + current + "';", null);
@@ -240,9 +242,15 @@ public class FourthActivity extends AppCompatActivity {
                     strDayOfMonth = "0" + String.valueOf(dayOfMonth);
                 }
                 String date = year + "-" + strMonth + "-" + strDayOfMonth;
-                tvRecord.setText(date); // 선택한 날짜로 설정
+
                 sqlDB2 = myHelper.getReadableDatabase();
+                tvRecord.setVisibility(View.VISIBLE);
                 tvLayout.setVisibility(View.INVISIBLE);
+
+                if(date == currentDate){
+                    tvRecord.setVisibility(View.INVISIBLE);
+                    tvLayout.setVisibility(View.VISIBLE);
+                }
 
                 if(versionID3 == 1){
                     String strRecord = date + "\r\n" + "운동 종류: 걷기" + "\r\n";

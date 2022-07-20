@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -30,6 +31,7 @@ public class SecondActivity extends AppCompatActivity {
     Button btnCheck2;
     SQLiteDatabase sqlDB;
     RelativeLayout WalkLayout;
+    LinearLayout layout_walkEx;
     int obTime;
     String[] WalkValues;
 
@@ -45,6 +47,7 @@ public class SecondActivity extends AppCompatActivity {
         Npsec = findViewById(R.id.Npsec);
         NpDistance = findViewById(R.id.NpDistance);
         NpWalk = findViewById(R.id.NpWalk);
+        layout_walkEx = findViewById(R.id.layout_walkEx);
         myHelper = new myDBHelper(this);
 
         Intent inIntent = getIntent();
@@ -57,12 +60,10 @@ public class SecondActivity extends AppCompatActivity {
         String current = format.format(currentTime);
 
         if(versionID == 1){
-            tv3.setVisibility(View.VISIBLE);
-            WalkLayout.setVisibility(View.VISIBLE);
+            layout_walkEx.setVisibility(View.VISIBLE);
         }
         if(versionID == 0){
-            tv3.setVisibility(View.INVISIBLE);
-            WalkLayout.setVisibility(View.INVISIBLE);
+            layout_walkEx.setVisibility(View.INVISIBLE);
         }
 
         NpMin.setMinValue(0);

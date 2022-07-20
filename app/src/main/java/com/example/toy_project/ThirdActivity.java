@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
@@ -35,15 +37,13 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
     myDBHelper myHelper;
     TextView tv3, edtExWalk, edtExDistance;
     Chronometer chronoExTime;
-    Button btnSave, btnExStart, btnExEnd;
+    Button btnExEnd;
     SQLiteDatabase sqlDB1;
     SensorManager sensorManager;
     Sensor stepCountSensor;
+    LinearLayout layout_walk;
     int timeSec;
-    TextView stepCountView;
-    Button resetButton;
     private Sensor stepDetectorSensor;
-    TextView tvStepDetector, tvGpsEnable, tvGpsLatitude, tvGpsLongitude, tvTimeDif, tvDistDif, tvEndLatitude, tvEndLongitude, tvNowLatitude, tvNowLongitude;
     private int mStepDetector = 0;
     private boolean isGPSEnable = false;
 
@@ -66,9 +66,8 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
         chronoExTime = findViewById(R.id.chronoExTime);
         edtExDistance = findViewById(R.id.edtExDistance);
         edtExWalk = findViewById(R.id.edtExWalk);
-        btnSave = findViewById(R.id.btnSave);
-        btnExStart = findViewById(R.id.btnExStart);
         btnExEnd = findViewById(R.id.btnExEnd);
+        layout_walk = findViewById(R.id.layout_walk);
         myHelper = new myDBHelper(this);
 
         Intent inIntent2 = getIntent();
@@ -80,19 +79,21 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
 
+        chronoExTime.setBase(SystemClock.elapsedRealtime());
+        chronoExTime.start();
+
         if (versionID2 == 1) {
-            tv3.setVisibility(View.VISIBLE);
-            edtExWalk.setVisibility(View.VISIBLE);
+            layout_walk.setVisibility(View.VISIBLE);
         } else if (versionID2 == 0) {
-            tv3.setVisibility(View.INVISIBLE);
-            edtExWalk.setVisibility(View.INVISIBLE);
+            layout_walk.setVisibility(View.INVISIBLE);
         }
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnExEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     if (versionID2 == 1) {
+                        chronoExTime.stop();
                         sqlDB1 = myHelper.getReadableDatabase();
                         sqlDB1.execSQL("DELETE FROM exerciseTBL_W WHERE date = ('" + current + "') ");
                         sqlDB1.close();
@@ -100,6 +101,7 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
                         sqlDB1.execSQL("INSERT INTO exerciseTBL_W VALUES ( " + timeSec + " , " + edtExDistance.getText().toString() + " , " + String.valueOf(currentSteps) + " , '" + current + "' );");
                         sqlDB1.close();
                     } else if (versionID2 == 0) {
+                        chronoExTime.stop();
                         sqlDB1 = myHelper.getReadableDatabase();
                         sqlDB1.execSQL("DELETE FROM exerciseTBL_R WHERE date = ('" + current + "') ");
                         sqlDB1.close();
@@ -119,29 +121,14 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
             @Override
             public void onChronometerTick(Chronometer cArg) {
                 long time = SystemClock.elapsedRealtime() - cArg.getBase();
-                int h = (int)(time /3600000);
-                int m = (int)(time - h*3600000)/60000;
-                int s = (int)(time - h*3600000- m*60000)/1000 ;
+                int h = (int)(time / 3600000);
+                int m = (int)(time - h * 3600000) / 60000;
+                int s = (int)(time - h * 3600000 - m * 60000) / 1000 ;
                 timeSec = s + (m * 60) + (h * 3600);
                 String hh = h < 10 ? "0"+h: h+"";
                 String mm = m < 10 ? "0"+m: m+"";
                 String ss = s < 10 ? "0"+s: s+"";
                 cArg.setText(hh+":"+mm+":"+ss);
-            }
-        });
-
-        btnExStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chronoExTime.setBase(SystemClock.elapsedRealtime());
-                chronoExTime.start();
-            }
-        });
-
-        btnExEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chronoExTime.stop();
             }
         });
 
