@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -19,6 +20,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -35,14 +37,21 @@ import java.util.Locale;
 public class ThirdActivity extends AppCompatActivity implements SensorEventListener, LocationListener{
 
     myDBHelper myHelper;
-    TextView tv3, edtExWalk, edtExDistance;
+    TextView tv3, edtExWalk, edtExDistance, countdownText, restDistance;
     Chronometer chronoExTime;
     Button btnExEnd;
     SQLiteDatabase sqlDB1;
     SensorManager sensorManager;
     Sensor stepCountSensor;
     LinearLayout layout_walk;
-    int timeSec;
+    CountDownTimer countDownTimer;
+    Cursor cursor;
+    String h, m, s;
+    double distance0, distance1;
+    long time = 0;
+    long tempTime = 0;
+
+    int timeSec, versionID2;
     private Sensor stepDetectorSensor;
     private int mStepDetector = 0;
     private boolean isGPSEnable = false;
@@ -68,12 +77,14 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
         edtExWalk = findViewById(R.id.edtExWalk);
         btnExEnd = findViewById(R.id.btnExEnd);
         layout_walk = findViewById(R.id.layout_walk);
+        countdownText = findViewById(R.id.countdownText);
+        restDistance = findViewById(R.id.restDistance);
         myHelper = new myDBHelper(this);
 
         Intent inIntent2 = getIntent();
         Intent intent3 = new Intent(getApplicationContext(), FourthActivity.class);
 
-        int versionID2 = inIntent2.getIntExtra("Version", 0);
+        versionID2 = inIntent2.getIntExtra("Version", 0);
 
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -84,8 +95,10 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
 
         if (versionID2 == 1) {
             layout_walk.setVisibility(View.VISIBLE);
+            startTimerW();
         } else if (versionID2 == 0) {
             layout_walk.setVisibility(View.INVISIBLE);
+            startTimerR();
         }
 
         btnExEnd.setOnClickListener(new View.OnClickListener() {
@@ -165,10 +178,9 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
             if (stepCountSensor == null) {
                 Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
             }
-
         }
-
     }
+
 
     public void onStart() {
         super.onStart();
@@ -239,6 +251,13 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
                     totaldistance += Double.parseDouble(String.format("%f",deltaDist));
                     edtExDistance.setText(String.format("%.3f", totaldistance / 1000));
                     lastKnownLocation = nowLastlocation;
+
+                    if(versionID2 == 1){
+                        restDistance.setText(String.format("%.3f", distance1 - (totaldistance / 1000)) + " Km");
+                    } else if(versionID2 == 0){
+                        restDistance.setText(String.format("%.3f", distance0 - (totaldistance / 1000)) + " Km");
+                    }
+
                     return deltaDist;
                 }
             }
@@ -311,5 +330,106 @@ public class ThirdActivity extends AppCompatActivity implements SensorEventListe
     // This function converts radians to decimal degrees
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
+    }
+
+    long timeCal(){
+        if (Integer.parseInt(cursor.getString(0)) >= 3600) {              // 운동시간이 1시간 이상
+            h = String.valueOf(Integer.parseInt(cursor.getString(0)) / 3600);
+            m = String.valueOf((Integer.parseInt(cursor.getString(0)) % 3600) / 60);
+            s = String.valueOf((Integer.parseInt(cursor.getString(0)) % 3600) % 60);
+            time = (Long.parseLong(h) * 3600000) + (Long.parseLong(m) * 60000) + (Long.parseLong(s) * 1000) + 1000;
+            return time;
+        } else if (Integer.parseInt(cursor.getString(0)) >= 60) {              // 운동시간이 1분 이상
+            h = String.valueOf(0);
+            m = String.valueOf((Integer.parseInt(cursor.getString(0)) % 3600) / 60);
+            s = String.valueOf((Integer.parseInt(cursor.getString(0)) % 3600) % 60);
+            time = (Long.parseLong(h) * 3600000) + (Long.parseLong(m) * 60000) + (Long.parseLong(s) * 1000) + 1000;
+            return time;
+        } else {                                                                   // 운동시간이 1분 미만
+            h = String.valueOf(0);
+            m = String.valueOf(0);
+            s = String.valueOf((Integer.parseInt(cursor.getString(0)) % 3600) % 60);
+            time = (Long.parseLong(h) * 3600000) + (Long.parseLong(m) * 60000) + (Long.parseLong(s) * 1000) + 1000;
+            return time;
+        }
+    }
+
+    void startTimerW(){
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String current = format.format(currentTime);
+
+        sqlDB1 = myHelper.getReadableDatabase();
+        cursor = sqlDB1.rawQuery("SELECT * FROM objectTBL_W WHERE date = '" + current + "'; ", null);
+        while(cursor.moveToNext()) {
+            time = timeCal();
+            distance1 = Double.parseDouble(cursor.getString(1));
+        }
+        sqlDB1.close();
+        cursor.close();
+
+        countDownTimer = new CountDownTimer(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                tempTime = millisUntilFinished;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+                countdownText.setText("완료");
+            }
+        }.start();
+    }
+
+    void startTimerR(){
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String current = format.format(currentTime);
+
+        sqlDB1 = myHelper.getReadableDatabase();
+        cursor = sqlDB1.rawQuery("SELECT * FROM objectTBL_R WHERE date = '" + current + "'; ", null);
+        while(cursor.moveToNext()) {
+            time = timeCal();
+            distance0 = Double.parseDouble(cursor.getString(1));
+        }
+        sqlDB1.close();
+        cursor.close();
+
+        countDownTimer = new CountDownTimer(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                tempTime = millisUntilFinished;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+                countdownText.setText("완료");
+            }
+        }.start();
+    }
+
+    //시간업데이트
+    void updateTimer() {
+
+        int hour = (int) tempTime / 3600000;
+        int minutes = (int) tempTime % 3600000 / 60000;
+        int seconds = (int) tempTime % 3600000 % 60000 / 1000;
+
+        String timeLeftText = "";
+
+        timeLeftText =  "" +  hour + ":";
+
+        if(minutes < 10) timeLeftText += "0";
+        timeLeftText += minutes +":";
+
+        //초가 10보다 작으면 0이 붙는다.
+        if(seconds < 10) timeLeftText += "0";
+        timeLeftText += seconds;
+
+        countdownText.setText(timeLeftText);
     }
 }

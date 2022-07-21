@@ -2,8 +2,6 @@ package com.example.toy_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -61,7 +58,6 @@ public class FourthActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String current = format.format(currentTime);
-        String currentDate = String.valueOf(current);
 
         tvRecord.setVisibility(View.INVISIBLE);
 
@@ -72,24 +68,8 @@ public class FourthActivity extends AppCompatActivity {
             excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_W WHERE date = '" + current + "';", null);
 
             while(ocursor.moveToNext()){
-//                tvOTime.setText("목표 시간: " + ocursor.getString(0) + "분");
-//                objectTime = Integer.parseInt(ocursor.getString(0));
 
-                if(Integer.parseInt(ocursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
-                    h = Integer.parseInt(ocursor.getString(0)) / 3600;
-                    m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + h + "시간" + m + "분" + s + "초");
-                }
-                else if(Integer.parseInt(ocursor.getString(0)) >= 60){              // 운동시간이 1분 이상
-                    m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + m + "분" + s + "초");
-                }
-                else{                                                                   // 운동시간이 1분 미만
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + s + "초");
-                }
+                timeOCal();
 
                 objectTime = Integer.parseInt(ocursor.getString(0));
 
@@ -101,24 +81,8 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             while(excursor.moveToNext()){
-//                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
-//                exerciseTime = Integer.parseInt(excursor.getString(0));
 
-                if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
-                    h = Integer.parseInt(excursor.getString(0)) / 3600;
-                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + h + "시간" + m + "분" + s + "초");
-                }
-                else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
-                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + m + "분" + s + "초");
-                }
-                else{                                                                   // 운동시간이 1분 미만
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + s + "초");
-                }
+                timeExCal();
 
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
@@ -129,26 +93,7 @@ public class FourthActivity extends AppCompatActivity {
                 exerciseWalk = Integer.parseInt(excursor.getString(2));
             }
 
-            if(exerciseTime >= objectTime){
-                tvCheckTime.setText("Success");
-            }
-            else{
-                tvCheckTime.setText("Fail");
-            }
-
-            if(exerciseDistance >= objectDistance){
-                tvCheckDistance.setText("Success");
-            }
-            else{
-                tvCheckDistance.setText("Fail");
-            }
-
-            if(exerciseWalk >= objectWalk){
-                tvCheckWalk.setText("Success");
-            }
-            else{
-                tvCheckWalk.setText("Fail");
-            }
+            failOrSuccess_W();
         }
         else if(versionID3 == 0){                               // 달리기 모드
 
@@ -158,24 +103,8 @@ public class FourthActivity extends AppCompatActivity {
             excursor = sqlDB2.rawQuery("SELECT * FROM exerciseTBL_R WHERE date = '" + current + "';", null);
 
             while(ocursor.moveToNext()){
-//                tvOTime.setText("목표 시간: " + ocursor.getString(0) + "분");
-//                objectTime = Integer.parseInt(ocursor.getString(0));
 
-                if(Integer.parseInt(ocursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
-                    h = Integer.parseInt(ocursor.getString(0)) / 3600;
-                    m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + h + "시간" + m + "분" + s + "초");
-                }
-                else if(Integer.parseInt(ocursor.getString(0)) >= 60){              // 운동시간이 1분 이상
-                    m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + m + "분" + s + "초");
-                }
-                else{                                                                   // 운동시간이 1분 미만
-                    s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
-                    tvOTime.setText("목표 시간: " + s + "초");
-                }
+                timeOCal();
 
                 objectTime = Integer.parseInt(ocursor.getString(0));
 
@@ -184,43 +113,15 @@ public class FourthActivity extends AppCompatActivity {
             }
 
             while(excursor.moveToNext()){
-//                tvExTime.setText("내 운동 시간: " + excursor.getString(0) + "분");
-//                exerciseTime = Integer.parseInt(excursor.getString(0));
 
-                if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
-                    h = Integer.parseInt(excursor.getString(0)) / 3600;
-                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + h + "시간" + m + "분" + s + "초");
-                }
-                else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
-                    m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + m + "분" + s + "초");
-                }
-                else{                                                                   // 운동시간이 1분 미만
-                    s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
-                    tvExTime.setText("내 운동 시간: " + s + "초");
-                }
+                timeExCal();
 
                 exerciseTime = Integer.parseInt(excursor.getString(0));
 
                 tvExDistance.setText("내 운동 거리: " + excursor.getString(1) + "Km");
                 exerciseDistance = Double.parseDouble(excursor.getString(1));
 
-                if(exerciseTime >= objectTime){
-                    tvCheckTime.setText("Success");
-                }
-                else{
-                    tvCheckTime.setText("Fail");
-                }
-
-                if(exerciseDistance >= objectDistance){
-                    tvCheckDistance.setText("Success");
-                }
-                else{
-                    tvCheckDistance.setText("Fail");
-                }
+                failOrSuccess_R();
             }
         }
 
@@ -246,11 +147,6 @@ public class FourthActivity extends AppCompatActivity {
                 sqlDB2 = myHelper.getReadableDatabase();
                 tvRecord.setVisibility(View.VISIBLE);
                 tvLayout.setVisibility(View.INVISIBLE);
-
-                if(date == currentDate){
-                    tvRecord.setVisibility(View.INVISIBLE);
-                    tvLayout.setVisibility(View.VISIBLE);
-                }
 
                 if(versionID3 == 1){
                     String strRecord = date + "\r\n" + "운동 종류: 걷기" + "\r\n";
@@ -306,6 +202,81 @@ public class FourthActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void timeOCal(){
+        if(Integer.parseInt(ocursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+            h = Integer.parseInt(ocursor.getString(0)) / 3600;
+            m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
+            s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
+            tvOTime.setText("목표: " + h + "시간" + m + "분" + s + "초");
+        }
+        else if(Integer.parseInt(ocursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+            m = (Integer.parseInt(ocursor.getString(0)) % 3600) / 60;
+            s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
+            tvOTime.setText("목표: " + m + "분" + s + "초");
+        }
+        else{                                                                   // 운동시간이 1분 미만
+            s = (Integer.parseInt(ocursor.getString(0)) % 3600) % 60;
+            tvOTime.setText("목표: " + s + "초");
+        }
+    }
+
+    void timeExCal(){
+        if(Integer.parseInt(excursor.getString(0)) >= 3600){              // 운동시간이 1시간 이상
+            h = Integer.parseInt(excursor.getString(0)) / 3600;
+            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+            tvExTime.setText("운동 시간: " + h + "시간" + m + "분" + s + "초");
+        }
+        else if(Integer.parseInt(excursor.getString(0)) >= 60){              // 운동시간이 1분 이상
+            m = (Integer.parseInt(excursor.getString(0)) % 3600) / 60;
+            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+            tvExTime.setText("운동 시간: " + m + "분" + s + "초");
+        }
+        else{                                                                   // 운동시간이 1분 미만
+            s = (Integer.parseInt(excursor.getString(0)) % 3600) % 60;
+            tvExTime.setText("운동 시간: " + s + "초");
+        }
+    }
+
+    void failOrSuccess_W(){
+        if(exerciseTime >= objectTime){
+            tvCheckTime.setText("Success");
+        }
+        else{
+            tvCheckTime.setText("Fail");
+        }
+
+        if(exerciseDistance >= objectDistance){
+            tvCheckDistance.setText("Success");
+        }
+        else{
+            tvCheckDistance.setText("Fail");
+        }
+
+        if(exerciseWalk >= objectWalk){
+            tvCheckWalk.setText("Success");
+        }
+        else{
+            tvCheckWalk.setText("Fail");
+        }
+    }
+
+    void failOrSuccess_R(){
+        if(exerciseTime >= objectTime){
+            tvCheckTime.setText("Success");
+        }
+        else{
+            tvCheckTime.setText("Fail");
+        }
+
+        if(exerciseDistance >= objectDistance){
+            tvCheckDistance.setText("Success");
+        }
+        else{
+            tvCheckDistance.setText("Fail");
+        }
     }
 
     @Override

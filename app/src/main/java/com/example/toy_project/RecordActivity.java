@@ -32,20 +32,6 @@ public class RecordActivity extends AppCompatActivity {
 
         sqlDB = myHelper.getReadableDatabase();
 
-//        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-//        ArrayList<String> list = new ArrayList<>();
-//        for (int i=0; i<100; i++) {
-//            list.add(String.format("TEXT %d", i)) ;
-//        }
-//
-//        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-//        RecyclerView recyclerView = findViewById(R.id.recycler1) ;
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this)) ;
-//
-//        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-//        recyclerAdapter adapter = new recyclerAdapter(list) ;
-//        recyclerView.setAdapter(adapter) ;
-
         if (versionID3 == 1){                           // 걷기 모드
             walkMode();
         }
@@ -82,7 +68,7 @@ public class RecordActivity extends AppCompatActivity {
                 exTime = s + "초";
             }
 
-            exItem += "운동 종류: 걷기\r\n" + excursor.getString(3) + "\r\n 운동시간: " +
+            exItem += "걷기\r\n" + excursor.getString(3) + "\r\n 운동시간: " +
                     exTime + "\r\n 운동 거리: " + excursor.getString(1) + "Km\r\n 걸음수: " + excursor.getString(2) + "\r\n";
             list.add(String.format(exItem));
             exItem = " ";
@@ -123,7 +109,7 @@ public class RecordActivity extends AppCompatActivity {
                 exTime = s + "초";
             }
 
-            exItem += "운동 종류: 달리기\r\n" + excursor.getString(2) + "\r\n 운동시간: "
+            exItem += "달리기\r\n" + excursor.getString(2) + "\r\n 운동시간: "
                     + exTime + "\r\n 운동 거리: " + excursor.getString(1) + "Km\r\n";
             list.add(String.format(exItem));
             exItem = " ";
@@ -165,7 +151,7 @@ public class RecordActivity extends AppCompatActivity {
                 exTime = s + "초";
             }
 
-            exItem += "운동 종류: 걷기\r\n" + excursor.getString(3) + "\r\n 운동시간: " +
+            exItem += "걷기\r\n" + excursor.getString(3) + "\r\n 운동시간: " +
                     exTime + "\r\n 운동 거리: " + excursor.getString(1) + "Km\r\n 걸음수: " + excursor.getString(2) + "\r\n";
             list.add(String.format(exItem));
             exItem = " ";
@@ -191,7 +177,7 @@ public class RecordActivity extends AppCompatActivity {
                 exTime = s + "초";
             }
 
-            exItem += "운동 종류: 달리기\r\n" + excursor.getString(2) + "\r\n 운동시간: "
+            exItem += "달리기\r\n" + excursor.getString(2) + "\r\n 운동시간: "
                     + exTime + "\r\n 운동 거리: " + excursor.getString(1) + "Km\r\n";
             list.add(String.format(exItem));
             exItem = " ";

@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
 
         <LinearLayout
@@ -40,8 +39,7 @@
                         android:id="@+id/NpMin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv1"
-                        android:hint="입력" />
+                        android:layout_below="@+id/tv1" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -53,6 +51,7 @@
                             android:layout_centerInParent="true"
                             android:padding="10dp"
                             android:text="분"
+                            android:textColor="#1f1f1f"
                             android:textSize="25dp" />
                     </RelativeLayout>
 
@@ -60,7 +59,6 @@
                         android:id="@+id/Npsec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="입력"
                         android:layout_below="@+id/tv1"/>
 
                     <RelativeLayout
@@ -71,6 +69,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:text="초"
+                            android:textColor="#1f1f1f"
                             android:layout_centerInParent="true"
                             android:textSize="25dp" />
                     </RelativeLayout>
@@ -110,8 +109,7 @@
                         android:id="@+id/NpDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="120dp"
-                        android:layout_below="@+id/tv1"
-                        android:hint="입력" />
+                        android:layout_below="@+id/tv1" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -121,6 +119,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:text="Km"
+                            android:textColor="#1f1f1f"
                             android:layout_centerInParent="true"
                             android:textSize="25dp" />
                     </RelativeLayout>
@@ -161,7 +160,6 @@
                         android:id="@+id/NpWalk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="입력"
                         android:layout_below="@+id/tv1"/>
 
                     <RelativeLayout
@@ -172,6 +170,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:text="걸음"
+                            android:textColor="#1f1f1f"
                             android:layout_centerInParent="true"
                             android:textSize="25dp" />
                     </RelativeLayout>
@@ -186,6 +185,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:padding="10dp">
 
         <Button
